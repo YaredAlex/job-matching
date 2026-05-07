@@ -3,8 +3,8 @@
 
 # 1. Global Weights (PDF Page 1, Section 1.1)
 GLOBAL_WEIGHTS = {
-    "w1_skills": 0.40,
-    "w2_preference": 0.40,
+    "w1_skills": 0.60,
+    "w2_preference": 0.20,
     "w3_market": 0.20
 }
 
