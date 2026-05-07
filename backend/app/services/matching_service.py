@@ -175,20 +175,16 @@ def _match_items(user: dict, items: list, item_type: str = "opportunity", top_k:
         List of formatted recommendations
     """
     # Filter by location
-    items = [item for item in items if _job_matches_user_location(item, user)]
-    print("match items ",items)
-    if not items:
-        return []
+    # items = [item for item in items if _job_matches_user_location(item, user)]
+    # if not items:
+    #     return []
     
     # Calculate scores for all items
     recommendations = []
     for item in items:
         skill = scorer_skill.calculate_score(user, item)
-        print("skill score ",skill)
         pref = scorer_pref.calculate_score(user, item)
-        print("pref ",pref)
         demand = scorer_demand.calculate_score(item)
-        print("score are ",demand)
         final_score = (
             GLOBAL_WEIGHTS["w1_skills"] * skill.get("U_final", 0.0)
             + GLOBAL_WEIGHTS["w2_preference"] * pref.get("score", 0.0)
@@ -204,7 +200,6 @@ def _match_items(user: dict, items: list, item_type: str = "opportunity", top_k:
             "demand_score": demand.get("score", 0.5),
             "demand_label": demand.get("label", "Unknown"),
         })
-    print("recommendations ",recommendations)
     
     # Sort and take top K
     recommendations.sort(key=lambda x: x["score"], reverse=True)
